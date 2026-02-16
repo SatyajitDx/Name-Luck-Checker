@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Name Luck Checker</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+.container {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 20px;
+    width: 350px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 15px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: #ff6f91;
+    color: white;
+}
+
+button:hover {
+    background: #ff3e6c;
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>🔮 Name Luck Checker</h2>
+    <input type="text" id="name" placeholder="Enter your name">
+    <br>
+    <button onclick="checkLuck()">Check Luck</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+function checkLuck() {
+    let name = document.getElementById("name").value;
+    if(name === "") {
+        alert("Please enter your name");
+        return;
+    }
+
+    // Sound effect
+    let audio = new Audio("https://www.soundjay.com/button/sounds/button-3.mp3");
+    audio.play();
+
+    // Luck calculation
+    let score = 0;
+    for(let i = 0; i < name.length; i++) {
+        score += name.charCodeAt(i);
+    }
+
+    let luck = score % 101; // 0-100%
+    let luckyNumber = (score % 9) + 1;
+
+    let colors = ["Red", "Blue", "Green", "Yellow", "Purple", "Pink", "Orange"];
+    let luckyColor = colors[score % colors.length];
+
+    document.getElementById("result").innerHTML =
+        "✨ Luck Score: " + luck + "%<br>" +
+        "🎨 Lucky Color: " + luckyColor + "<br>" +
+        "🔢 Lucky Number: " + luckyNumber;
+}
+</script>
+
+</body>
+</html>
